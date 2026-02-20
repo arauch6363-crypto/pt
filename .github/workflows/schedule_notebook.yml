@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install jupyter nbconvert papermill selenium unidecode fastparquet pyarrow beautifulsoup4 pytz google-auth google-api-python-client google-auth-httplib2
+          pip install jupyter nbconvert papermill selenium undetected-chromedriver unidecode fastparquet pyarrow beautifulsoup4 pytz google-auth google-api-python-client google-auth-httplib2
 
       - name: Download files from Google Drive
         env:
