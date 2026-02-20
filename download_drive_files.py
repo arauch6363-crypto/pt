@@ -2,12 +2,11 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 import io
-import os
 
 # Load credentials
 credentials = service_account.Credentials.from_service_account_file(
     'credentials.json',
-    scopes=['https://www.googleapis.com/auth/drive']  # full read/write
+    scopes=['https://www.googleapis.com/auth/drive']
 )
 
 service = build('drive', 'v3', credentials=credentials)
@@ -21,14 +20,15 @@ def download_file(file_id, filename):
             status, done = downloader.next_chunk()
             print(f"Downloading {filename}: {int(status.progress() * 100)}%")
 
-# Add your files here — get the file ID from the Google Drive share link
-# e.g. https://drive.google.com/file/d/THIS_PART_IS_THE_ID/view
-download_file('your_file_id_here', 'myfile.csv')
-download_file('your_file_id_here', 'anotherfile.xlsx')
-```
+download_file('1tS8DsbCzeTUMj-DsB8A7bvM-XSCFa537', 'races.parquet')
+download_file('1Tv20gDn7EWZMNIc0Nu9KRFJk-NM8OVgT', 'runners.parquet')
+download_file('1-1dPegROQWIMhEHb8y2PezKfrLiE1x-6', 'reload_tracker.csv')
+download_file('1DrevoYuGIcfq_4rYfz11H44pnANOnN1B', 'webTips.parquet')
+download_file('1HG6V24mn9y_0uJH-13HIWxpcFwwE59ws', 'odds.parquet')
+download_file('1-3OHnFfuM7qgJuq329gFa22jACuPGIeU', 'dividends.parquet')
+download_file('1tS8DsbCzeTUMj-DsB8A7bvM-XSCFa537', 'races_tdy.parquet')
+download_file('19g1udGm83tmRNTr10v598jtRox-bOWxq', 'runners_tdy.parquet')
+download_file('1fqLUYNF1nfaCsw2K95fi-bWj4Jg0qdDo', 'webTips_tdy.parquet')
+download_file('1Cx_juo4BT97gAqFysRQZyu8si_kb-zaU', 'odds_tdy.parquet')
 
-To get your **file ID**, right-click the file in Google Drive → **"Share"** → **"Copy link"**. The link looks like:
-```
-https://drive.google.com/file/d/1aBcDeFgHiJkLmNoPqRsTuVwXyZ/view
-                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
-                                  This is your file ID
+print("All files downloaded successfully!")
