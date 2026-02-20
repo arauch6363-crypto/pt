@@ -24,7 +24,7 @@ jobs:
 
       - name: Run notebook
         run: |
-          papermill PT_2024ipynb.ipynb output.ipynb
+          papermill PT_github_2026ipynb.ipynb output.ipynb
 
       - name: Upload output notebook
         uses: actions/upload-artifact@v4
