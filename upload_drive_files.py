@@ -11,11 +11,16 @@ credentials = service_account.Credentials.from_service_account_file(
 service = build('drive', 'v3', credentials=credentials)
 
 def upload_file(file_id, filename):
-    media = MediaFileUpload(filename)
-    service.files().update(fileId=file_id, media_body=media).execute()
-    print(f"Uploaded {filename} successfully!")
+    if os.path.exists(filename):
+        media = MediaFileUpload(filename)
+        service.files().update(fileId=file_id, media_body=media).execute()
+        print(f"Uploaded {filename} successfully!")
+    else:
+        print(f"Skipping {filename} - file not found")
 
-upload_file('1tS8DsbCzeTUMj-DsB8A7bvM-XSCFa537', 'races.parquet')
+import os
+
+upload_file('1diodI8USw9TgMqTVWJHzEG7P3rkBZOL_', 'races.parquet')
 upload_file('1Tv20gDn7EWZMNIc0Nu9KRFJk-NM8OVgT', 'runners.parquet')
 upload_file('1-1dPegROQWIMhEHb8y2PezKfrLiE1x-6', 'reload_tracker.csv')
 upload_file('1DrevoYuGIcfq_4rYfz11H44pnANOnN1B', 'webTips.parquet')
