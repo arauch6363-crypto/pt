@@ -31,7 +31,7 @@ jobs:
           echo "$GDRIVE_CREDENTIALS" > credentials.json
           python download_drive_files.py
 
-      - name: Run notebook
+      - name: Run historical notebook
         id: run_notebook
         run: |
           for i in 1 2 3; do
@@ -45,12 +45,28 @@ jobs:
             sleep 30
           done
 
+      - name: Run today notebook
+        id: run_today_notebook
+        run: |
+          for i in 1 2 3; do
+            echo "Attempt $i of 3"
+            papermill pt_github_2026_today.ipynb output_today.ipynb && break
+            echo "Attempt $i failed"
+            if [ $i -eq 3 ]; then
+              echo "All 3 attempts failed"
+              exit 1
+            fi
+            sleep 30
+          done
+
       - name: Upload files back to Google Drive
         run: |
           python upload_drive_files.py
 
-      - name: Upload output notebook
+      - name: Upload output notebooks
         uses: actions/upload-artifact@v4
         with:
           name: notebook-output
-          path: output.ipynb
+          path: |
+            output.ipynb
+            output_today.ipynb
