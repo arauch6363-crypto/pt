@@ -2,7 +2,7 @@ name: Update Today's Races
 
 on:
   schedule:
-    - cron: '*/20 10-18 * * *'  # Every 20 minutes between 10 AM and 6 PM UTC
+    - cron: '*/30 10-18 * * *'  # Every 20 minutes between 10 AM and 6 PM UTC
   workflow_dispatch:
 
 jobs:
