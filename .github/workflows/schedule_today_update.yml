@@ -44,6 +44,19 @@ jobs:
             sleep 30
           done
 
+      - name: Run analysis notebook
+        run: |
+          for i in 1 2 3; do
+            echo "Attempt $i of 3"
+            papermill PT_github_2026_Analysis_clean.ipynb output_analysis.ipynb && break
+            echo "Attempt $i failed"
+            if [ $i -eq 3 ]; then
+              echo "All 3 attempts failed"
+              exit 1
+            fi
+            sleep 30
+          done
+
       - name: Upload files back to Google Drive
         env:
           GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
