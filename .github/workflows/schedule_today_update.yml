@@ -1,1 +1,56 @@
 
+name: Update Today's Races
+
+on:
+  schedule:
+    - cron: '*/20 10-18 * * *'  # Every 20 minutes between 10 AM and 6 PM UTC
+  workflow_dispatch:
+
+jobs:
+  run-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install jupyter nbconvert papermill playwright nest_asyncio unidecode fastparquet pyarrow beautifulsoup4 pytz google-auth google-api-python-client google-auth-httplib2
+          playwright install chromium
+          playwright install-deps chromium
+
+      - name: Download files from Google Drive
+        env:
+          GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
+        run: |
+          echo "$GDRIVE_CREDENTIALS" > credentials.json
+          python download_drive_files.py
+
+      - name: Run today update notebook
+        run: |
+          for i in 1 2 3; do
+            echo "Attempt $i of 3"
+            papermill PT_github_2026_today_update.ipynb output_today_update.ipynb && break
+            echo "Attempt $i failed"
+            if [ $i -eq 3 ]; then
+              echo "All 3 attempts failed"
+              exit 1
+            fi
+            sleep 30
+          done
+
+      - name: Upload files back to Google Drive
+        run: |
+          python upload_drive_files.py
+
+      - name: Upload output notebook
+        uses: actions/upload-artifact@v4
+        with:
+          name: notebook-output-update
+          path: output_today_update.ipynb
