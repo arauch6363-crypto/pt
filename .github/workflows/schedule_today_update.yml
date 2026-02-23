@@ -57,6 +57,13 @@ jobs:
             sleep 30
           done
 
+      - name: Upload analysis output files to Google Drive
+        env:
+          GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
+        run: |
+          echo "$GDRIVE_CREDENTIALS" > credentials.json
+          python upload_analysis_files.py
+
       - name: Upload files back to Google Drive
         env:
           GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
