@@ -18,6 +18,12 @@ def download_file(file_id, filename):
             status, done = downloader.next_chunk()
             print(f"Downloading {filename}: {int(status.progress() * 100)}%")
 
+download_file('1diodI8USw9TgMqTVWJHzEG7P3rkBZOL_', 'races.parquet')
+download_file('1Tv20gDn7EWZMNIc0Nu9KRFJk-NM8OVgT', 'runners.parquet')
+download_file('1-1dPegROQWIMhEHb8y2PezKfrLiE1x-6', 'reload_tracker.csv')
+download_file('1DrevoYuGIcfq_4rYfz11H44pnANOnN1B', 'webTips.parquet')
+download_file('1HG6V24mn9y_0uJH-13HIWxpcFwwE59ws', 'odds.parquet')
+download_file('1-3OHnFfuM7qgJuq329gFa22jACuPGIeU', 'dividends.parquet')
 download_file('1tS8DsbCzeTUMj-DsB8A7bvM-XSCFa537', 'races_tdy.parquet')
 download_file('19g1udGm83tmRNTr10v598jtRox-bOWxq', 'runners_tdy.parquet')
 download_file('1fqLUYNF1nfaCsw2K95fi-bWj4Jg0qdDo', 'webTips_tdy.parquet')
