@@ -24,6 +24,13 @@ jobs:
           playwright install chromium
           playwright install-deps chromium
 
+      - name: Download files from Google Drive
+        env:
+          GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
+        run: |
+          echo "$GDRIVE_CREDENTIALS" > credentials.json
+          python download_drive_files_today_update.py
+
       - name: Run today update notebook
         run: |
           for i in 1 2 3; do
