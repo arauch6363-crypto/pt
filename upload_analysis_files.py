@@ -12,7 +12,7 @@ service = build('drive', 'v3', credentials=credentials)
 
 # ── Set this to your PT folder ID in Google Drive ────────────────────────────
 # Get it from the URL when you open the folder: drive.google.com/drive/folders/<FOLDER_ID>
-FOLDER_ID = 'YOUR_PT_FOLDER_ID_HERE'
+FOLDER_ID = '17Y2SZHGgd9FUbv0gmS9HKLjAzqdKOdAZ'
 
 def upload_or_update(filename, folder_id):
     """Upload a file to Drive, overwriting if a file with the same name exists."""
