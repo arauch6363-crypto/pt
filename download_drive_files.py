@@ -31,5 +31,8 @@ download_file('1tS8DsbCzeTUMj-DsB8A7bvM-XSCFa537', 'races_tdy.parquet')
 download_file('19g1udGm83tmRNTr10v598jtRox-bOWxq', 'runners_tdy.parquet')
 download_file('1fqLUYNF1nfaCsw2K95fi-bWj4Jg0qdDo', 'webTips_tdy.parquet')
 download_file('1Cx_juo4BT97gAqFysRQZyu8si_kb-zaU', 'odds_tdy.parquet')
+download_file('1m3rf0xZxKqIQejHYXWLkL1Dx7NDzNbZD',   'df_with_ratings.parquet')
+download_file('1LG2GvIrv84popZCY9jKJ8YX0Yjq-NUGL',     'ratings_state.json')
+download_file('1O_36ELAU98GPvOBKs-ltdB_Z6bqkjK78', 'ratings_last_date.txt')
 
 print("All files downloaded successfully!")
