@@ -50,7 +50,7 @@ jobs:
         run: |
           for i in 1 2 3; do
             echo "Attempt $i of 3"
-            papermill pt_github_2026_today.ipynb output_today.ipynb && break
+            papermill PT_github_2026_today.ipynb output_today.ipynb && break
             echo "Attempt $i failed"
             if [ $i -eq 3 ]; then
               echo "All 3 attempts failed"
