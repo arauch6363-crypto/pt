@@ -73,7 +73,10 @@ jobs:
           done
 
       - name: Upload files back to Google Drive
+        env:
+          GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
         run: |
+          echo "$GDRIVE_CREDENTIALS" > credentials.json
           python upload_drive_files.py
 
       - name: Upload output notebooks
