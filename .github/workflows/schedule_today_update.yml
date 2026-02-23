@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install jupyter nbconvert papermill playwright nest_asyncio unidecode fastparquet pyarrow beautifulsoup4 pytz google-auth google-api-python-client google-auth-httplib2 scipy statsmodels textblob
+          pip install jupyter nbconvert papermill playwright nest_asyncio unidecode fastparquet pyarrow beautifulsoup4 pytz google-auth google-api-python-client google-auth-httplib2 scipy statsmodels textblob scikit-learn tqdm matplotlib
           playwright install chromium
           playwright install-deps chromium
 
