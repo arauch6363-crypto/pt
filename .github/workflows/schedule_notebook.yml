@@ -60,11 +60,11 @@ jobs:
           done
 
 
-      - name: Run analysis notebook
+      - name: Run prediction notebook
         run: |
           for i in 1 2 3; do
             echo "Attempt $i of 3"
-            papermill PT_github_2026_Analysis_clean.ipynb output_analysis.ipynb && break
+            papermill PT_Predictor_live.ipynb output_predictor.ipynb && break
             echo "Attempt $i failed"
             if [ $i -eq 3 ]; then
               echo "All 3 attempts failed"
@@ -73,11 +73,13 @@ jobs:
             sleep 30
           done
 
-      - name: Run prediction notebook
+          
+
+      - name: Run analysis notebook
         run: |
           for i in 1 2 3; do
             echo "Attempt $i of 3"
-            papermill PT_Predictor_live.ipynb output_predictor.ipynb && break
+            papermill PT_github_2026_Analysis_clean.ipynb output_analysis.ipynb && break
             echo "Attempt $i failed"
             if [ $i -eq 3 ]; then
               echo "All 3 attempts failed"
