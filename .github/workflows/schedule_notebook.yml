@@ -1,4 +1,3 @@
-schedule_notebook.yml:
 name: Run Jupyter Notebook
 
 on:
