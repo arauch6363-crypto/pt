@@ -72,6 +72,16 @@ jobs:
             sleep 30
           done
 
+      - name: Install lightgbm joblib
+        run: pip install lightgbm joblib
+      
+      - name: Run prediction notebook
+        run: |
+          for i in 1 2 3; do
+            papermill PT_Predictor_live.ipynb output_predictor.ipynb && break
+            sleep 30
+          done
+
       - name: Upload analysis output notebook
         uses: actions/upload-artifact@v4
         with:
