@@ -1,9 +1,10 @@
+schedule_notebook.yml:
 name: Run Jupyter Notebook
 
 on:
   schedule:
     - cron: '0 9 * * *'  # Every day at 9 AM UTC
-  workflow_dispatch:       # Allows manual triggering
+  workflow_dispatch:
 
 jobs:
   run-notebook:
@@ -20,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install jupyter nbconvert papermill playwright nest_asyncio unidecode fastparquet pyarrow beautifulsoup4 pytz google-auth google-api-python-client google-auth-httplib2 scipy statsmodels textblob scikit-learn tqdm matplotlib tabulate
+          pip install jupyter nbconvert papermill playwright nest_asyncio unidecode fastparquet pyarrow beautifulsoup4 pytz google-auth google-api-python-client google-auth-httplib2 scipy statsmodels textblob scikit-learn tqdm matplotlib tabulate lightgbm joblib
           playwright install chromium
           playwright install-deps chromium
 
@@ -59,6 +60,19 @@ jobs:
             sleep 30
           done
 
+      - name: Run prediction notebook
+        run: |
+          for i in 1 2 3; do
+            echo "Attempt $i of 3"
+            papermill PT_Predictor_live.ipynb output_predictor.ipynb && break
+            echo "Attempt $i failed"
+            if [ $i -eq 3 ]; then
+              echo "All 3 attempts failed"
+              exit 1
+            fi
+            sleep 30
+          done
+
       - name: Run analysis notebook
         run: |
           for i in 1 2 3; do
@@ -71,22 +85,6 @@ jobs:
             fi
             sleep 30
           done
-
-      - name: Install lightgbm joblib
-        run: pip install lightgbm joblib
-      
-      - name: Run prediction notebook
-        run: |
-          for i in 1 2 3; do
-            papermill PT_Predictor_live.ipynb output_predictor.ipynb && break
-            sleep 30
-          done
-
-      - name: Upload analysis output notebook
-        uses: actions/upload-artifact@v4
-        with:
-          name: notebook-output-analysis
-          path: output_analysis.ipynb
 
       - name: Upload analysis output files to Google Drive
         env:
@@ -109,3 +107,5 @@ jobs:
           path: |
             output.ipynb
             output_today.ipynb
+            output_predictor.ipynb
+            output_analysis.ipynb
